@@ -1,0 +1,24 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="AudioBooker.classes.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="SoundEffectInter" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">{ExePath}\Content\snd\ilyafrank_inter.mp3</Value>
+    </Setting>
+    <Setting Name="SoundEffectOpen" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">{ExePath}\Content\snd\ilyafrank_open.mp3</Value>
+    </Setting>
+    <Setting Name="SoundEffectClose" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">{ExePath}\Content\snd\ilyafrank_close.mp3</Value>
+    </Setting>
+    <Setting Name="CutSecondsBefore" Type="System.Double" Scope="Application">
+      <Value Profile="(Default)">0.1</Value>
+    </Setting>
+    <Setting Name="CutSecondsAfter" Type="System.Double" Scope="Application">
+      <Value Profile="(Default)">0.1</Value>
+    </Setting>
+    <Setting Name="SoundEffectFactor" Type="System.Double" Scope="Application">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
