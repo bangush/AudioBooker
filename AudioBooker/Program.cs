@@ -14,7 +14,8 @@ namespace AudioBooker {
             if (Environment.OSVersion.Version.Major >= 6) SetProcessDPIAware();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form_Audiobooker());
+            //Application.Run(new Form_Audiobooker());
+            Application.Run(new Form_Audiobooker2());
             //Application.Run(new zStackoverflowTest());
         }
 

@@ -31,7 +31,16 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Miktemk">
+      <HintPath>..\packages\miktemk\Miktemk.dll</HintPath>
+    </Reference>
+    <Reference Include="Miktemk.Mp3">
+      <HintPath>..\packages\miktemk\Miktemk.Mp3.dll</HintPath>
+    </Reference>
     <Reference Include="NAudio, Version=1.7.0.15, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\NAudio.1.7\lib\net35\NAudio.dll</HintPath>
@@ -55,11 +64,20 @@
     <Compile Include="Form_Audiobooker.Designer.cs">
       <DependentUpon>Form_Audiobooker.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_Audiobooker2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Audiobooker2.Designer.cs">
+      <DependentUpon>Form_Audiobooker2.cs</DependentUpon>
+    </Compile>
     <Compile Include="LogicShit.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form_Audiobooker.resx">
       <DependentUpon>Form_Audiobooker.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Audiobooker2.resx">
+      <DependentUpon>Form_Audiobooker2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -89,14 +107,13 @@
       <Project>{f1697b79-5b17-4b6a-91db-89691dfe8440}</Project>
       <Name>AudioBooker.classes</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Mp3SplitterCommon\Mp3SplitterCommon.csproj">
-      <Project>{048b3d32-82af-41e8-a11f-1f2a9a199605}</Project>
-      <Name>Mp3SplitterCommon</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MyControlz\MyControlz.csproj">
+    <ProjectReference Include="..\AudioBooker.controls\Audiobooker.controls.csproj">
       <Project>{56984d81-8213-4a4f-8438-3cd507a69ec8}</Project>
-      <Name>MyControlz</Name>
+      <Name>Audiobooker.controls</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="favicon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

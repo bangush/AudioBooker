@@ -12,13 +12,16 @@
       <Value Profile="(Default)">{ExePath}\Content\snd\ilyafrank_close.mp3</Value>
     </Setting>
     <Setting Name="CutSecondsBefore" Type="System.Double" Scope="Application">
-      <Value Profile="(Default)">0.1</Value>
+      <Value Profile="(Default)">0.3</Value>
     </Setting>
     <Setting Name="CutSecondsAfter" Type="System.Double" Scope="Application">
       <Value Profile="(Default)">0.1</Value>
     </Setting>
     <Setting Name="SoundEffectFactor" Type="System.Double" Scope="Application">
-      <Value Profile="(Default)">2</Value>
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="FileExtensionsImage" Type="System.String" Scope="User">
+      <Value Profile="(Default)">.jpg|.jpeg|.gif|.bmp|.tiff</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -27,8 +27,8 @@
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.webBrowserControl = new System.Windows.Forms.WebBrowser();
             this.progressBar = new System.Windows.Forms.ProgressBar();
-            this.segmentProgressView = new MyControlz.SegmentProgressView();
-            this.recordingControls = new MyControlz.RecordingControls();
+            this.segmentProgressView = new Audiobooker.controls.SegmentProgressView();
+            this.recordingControls = new Audiobooker.controls.RecordingControls();
             this.lblReverse = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -113,8 +113,8 @@
 
         private System.Windows.Forms.RichTextBox txtArea;
         private System.Windows.Forms.LinkLabel linkLabel1;
-        private MyControlz.RecordingControls recordingControls;
-        private MyControlz.SegmentProgressView segmentProgressView;
+        private Audiobooker.controls.RecordingControls recordingControls;
+        private Audiobooker.controls.SegmentProgressView segmentProgressView;
         private System.Windows.Forms.WebBrowser webBrowserControl;
         private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.Label lblReverse;

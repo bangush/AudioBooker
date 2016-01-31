@@ -13,6 +13,8 @@ namespace AudioBooker.classes
     {
         private WaveIn waveIn;
         private WaveFileWriter writer;
+        private DateTime timeOfLastRecOn;
+        private DateTime timeOfLastRecOff;
 
         //TODO: this needs an output folder
         public AudioRecManager() {
@@ -35,6 +37,7 @@ namespace AudioBooker.classes
             TmpFilename = String.Format(".{0}.wav", Guid.NewGuid().ToString().Replace("-", ""));
             writer = new WaveFileWriter(TmpFilename, waveIn.WaveFormat);
             waveIn.StartRecording();
+            timeOfLastRecOn = DateTime.Now;
         }
         private void waveIn_DataAvailable(object sender, WaveInEventArgs e) {
             //writer.WriteData(e.Buffer, 0, e.BytesRecorded);
@@ -46,8 +49,10 @@ namespace AudioBooker.classes
             waveIn.StopRecording();
             waveIn.Dispose();
             writer.Close();
+            writer.Dispose();
             waveIn = null;
             writer = null;
+            timeOfLastRecOff = DateTime.Now;
         }
         public void DisposeOfLastRecording() {
             if (TmpFilename == null)
@@ -75,7 +80,13 @@ namespace AudioBooker.classes
 
         public TimeSpan LastRecordingLength {
             get {
-                return TimeSpan.Zero;
+                return timeOfLastRecOff.Subtract(timeOfLastRecOn);
+            }
+        }
+        public bool IsRecording
+        {
+            get {
+                return (waveIn != null);
             }
         }
 

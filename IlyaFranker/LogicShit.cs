@@ -49,7 +49,7 @@ namespace IlyaFranker {
                 .addEdge___(Keys.Enter, LogicState.DeqedLang1, (args) => {
                     IlyaXml = new XmlIlyaFrankAbook() {
                         Lang1Mp3Filename = Lang1Mp3,
-                        Lang1Prefix = AudioBooker.classes.Utils.GetFullPathWithoutExtension(Lang1Mp3)
+                        Lang1Prefix = AudioBooker.classes.UtilsCore.GetFullPathWithoutExtension(Lang1Mp3)
                     };
                     new_paragraph();
                     nextLang1Phrase();
@@ -304,7 +304,7 @@ namespace IlyaFranker {
             if (fname == null)
                 return;
             if (Lang1CurSegment.Type == WavEventType.WavRecording1)
-                WavUtils.PlayAllOfFile(AudioBooker.classes.Utils.GetFullPathWithoutExtension(Lang1Mp3) + "/" + fname);
+                WavUtils.PlayAllOfFile(AudioBooker.classes.UtilsCore.GetFullPathWithoutExtension(Lang1Mp3) + "/" + fname);
             else
                 Mp3Utils.PlayPieceOfAFile(
                     Lang1Mp3,
@@ -408,13 +408,13 @@ namespace IlyaFranker {
         /// </summary>
         private string GetLang1Xml_curSegmentFilename() {
             
-            return AudioBooker.classes.Utils.GetFullPathWithoutExtension(Lang1Mp3) + "/" + Lang1CurSegment.Filename;
+            return AudioBooker.classes.UtilsCore.GetFullPathWithoutExtension(Lang1Mp3) + "/" + Lang1CurSegment.Filename;
         }
 
         #endregion
 
         public void cleanUpFilenames(string filenameBig) {
-            var newFolderName = AudioBooker.classes.Utils.GetFullPathWithoutExtension(filenameBig);
+            var newFolderName = AudioBooker.classes.UtilsCore.GetFullPathWithoutExtension(filenameBig);
             var allSeg1 = IlyaXml.Paragraphs
                 .SelectMany(x => x.Sentences)
                 .SelectMany(x => x.Lang1Segments);

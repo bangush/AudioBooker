@@ -5,27 +5,29 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Mp3SplitterCommon;
+using AudioBooker.classes.Properties;
+using System.Diagnostics;
+using Miktemk.Mp3;
 
-namespace AudioBooker.classes {
-    public static class Utils {
-        public static string ToTsString(this TimeSpan ts) {
-            return ts.ToString("hh\\:mm\\:ss\\.ff");
+namespace AudioBooker.classes
+{
+    public static class UtilsCore
+    {
+        public const string ExplorerExecutable = "explorer";
+        private const double SECONDS_IN_TEXT_POINT = 4;
+
+        private static string[]
+            EXT_image = Settings.Default.FileExtensionsImage.Split('|');
+
+        public static string ToBarString(this TimeSpan ts) {
+            var points = (int)(ts.TotalSeconds / SECONDS_IN_TEXT_POINT);
+            return (points >= 1)
+                ? new String('=', points)
+                : "|";
         }
-
-        private const double SECONDS_IN_TEXT_POINT = 1;
         public static string SimulateLength(TimeSpan timeIn, TimeSpan timeOut) {
             var diff = timeOut.Subtract(timeIn);
-            var points = (int)(diff.TotalSeconds / SECONDS_IN_TEXT_POINT);
-            if (points < 1)
-                points = 1;
-            return new String('=', points);
-        }
-
-        public static void AddOrUpdate(this KeyValueConfigurationCollection dict, string key, string value) {
-            if (dict.AllKeys.Any(x => x == key))
-                dict.Remove(key);
-            dict.Add(key, value);
+            return diff.ToBarString();
         }
 
         public static string GetFullPathWithoutExtension(string fname) {
@@ -56,6 +58,27 @@ namespace AudioBooker.classes {
             }
         }
 
+        public static bool IsFilenameImage(string filename)
+        {
+            return IsFilenameOneOfThese(filename, EXT_image);
+        }
+
+        private static bool IsFilenameOneOfThese(string filename, string[] extensions)
+        {
+            if (String.IsNullOrEmpty(filename))
+                return false;
+            var ext = Path.GetExtension(filename).ToLower();
+            return extensions.Any(e => String.Equals(e, ext, StringComparison.OrdinalIgnoreCase));
+        }
+
+        public static void OpenWinExplorerAndSelectThisFile(string filename)
+        {
+            string args = string.Format("/e, /select, \"{0}\"", filename);
+            ProcessStartInfo info = new ProcessStartInfo();
+            info.FileName = ExplorerExecutable;
+            info.Arguments = args;
+            Process.Start(info);
+        }
     }
 
 }

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
+using Miktemk;
 
 namespace AudioBooker.classes {
 
@@ -22,6 +23,8 @@ namespace AudioBooker.classes {
         public TimeSpan TimeIn { get; set; }
         [XmlIgnore]
         public TimeSpan TimeOut { get; set; }
+        [XmlIgnore]
+        public TimeSpan SegmentLength { get { return TimeOut.Subtract(TimeIn); } }
 
         #region custom serialization
 
@@ -71,7 +74,7 @@ namespace AudioBooker.classes {
         public override string ToString() {
             var shit = Segments.Union(SoundEffects)
                 .OrderBy(x => x.TimeIn)
-                .Select(x => String.Format("{0}: {1}", x.Filename, x.TimeIn.ToTsString()));
+                .Select(x => String.Format("{0} {1}", x.SegmentLength.ToTsString2(), x.SegmentLength.ToBarString()));
             return string.Join("\n", shit);
         }
     }

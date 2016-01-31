@@ -95,7 +95,7 @@
       <Project>{048b3d32-82af-41e8-a11f-1f2a9a199605}</Project>
       <Name>Mp3SplitterCommon</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MyControlz\MyControlz.csproj">
+    <ProjectReference Include="..\AudioBooker.controls\Audiobooker.controls.csproj">
       <Project>{56984d81-8213-4a4f-8438-3cd507a69ec8}</Project>
       <Name>MyControlz</Name>
     </ProjectReference>

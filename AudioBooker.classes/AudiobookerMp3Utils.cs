@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using AudioBooker.classes.Properties;
-using Mp3SplitterCommon;
+using Miktemk.Mp3;
 
 namespace AudioBooker.classes {
 
@@ -21,7 +21,7 @@ namespace AudioBooker.classes {
             // save mp3
             var result = new WavComposite(filename);
             foreach (var seg in meta.Segments) {
-                var segFilename = Path.GetFileNameWithoutExtension(filename) + "/" + seg.Filename;
+                var segFilename = UtilsCore.GetFullPathWithoutExtension(filename) + "/" + seg.Filename;
                 var lengthSec = ((double)WavUtils.TotalLengthMillis(segFilename)) / 1000;
                 result.WritePieceOfSomeFileWav(
                     segFilename,
@@ -40,7 +40,7 @@ namespace AudioBooker.classes {
             Action<double> updateProgress = null)
         {
             // save mp3
-            var filenameWav = Utils.GetFullPathWithoutExtension(filenameOut) + ".wav"; //force .wav extension
+            var filenameWav = UtilsCore.GetFullPathWithoutExtension(filenameOut) + ".wav"; //force .wav extension
             var result = new WavComposite(filenameWav);
             int totalSentences = xmlIlyaFrankAbook.Paragraphs.SelectMany(x => x.Sentences).Count();
             int i = 0;

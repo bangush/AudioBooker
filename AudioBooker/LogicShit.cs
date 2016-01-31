@@ -4,9 +4,14 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using AudioBooker.classes;
+using System.Windows.Forms;
+using Audiobooker.controls;
+using Miktemk;
+using Miktemk.Mp3;
 
-namespace AudioBooker {
-    public class LogicShit
+namespace AudioBooker
+{
+    public class LogicShit : IAudioBookerLogicForRecControls
     {
         private const string DumpFolder = "____temp";
 
@@ -14,36 +19,72 @@ namespace AudioBooker {
         private XmlWavEvent curSegment;
         private AudioRecManager recMan;
         private TimeSpan curTime;
+        private Timer ttSex;
+        private DateTime whenLastSegmentStarted;
 
         public LogicShit(AudioRecManager recMan) {
             this.recMan = recMan;
             FilenameFormat = DumpFolder + "/segment_{0}.wav";
+            ttSex = new Timer();
+            ttSex.Interval = 500;
+            ttSex.Tick += ttSex_tick;
+        }
+
+        private void ttSex_tick(object sender, EventArgs e)
+        {
+            FireSegmentTimeUpdatedBasedOnCurrentSituation();
         }
 
         #region events
-        public delegate void VoidHandler();
         public event VoidHandler CurSegmentUpdated;
-        private void FireHandler(VoidHandler x) {
+        public event VoidHandler XmlUpdated;
+        public event VoidHandler RecStopped;
+        public event TimeSpanHandler SegmentTimeUpdated;
+        private AudioPlaya playa;
+        private void FireHandler(VoidHandler x)
+        {
             if (x != null)
                 x();
+        }
+        private void FireHandler(TimeSpanHandler x, TimeSpan ts)
+        {
+            if (x != null)
+                x(ts);
+        }
+        private void FireSegmentTimeUpdatedBasedOnCurrentSituation()
+        {
+            if (!recMan.IsRecording)
+                FireHandler(SegmentTimeUpdated, TimeSpan.Zero);
+            var tsDiff = DateTime.Now.Subtract(whenLastSegmentStarted);
+            FireHandler(SegmentTimeUpdated, tsDiff);
         }
         #endregion
 
         #region state machine
 
-        public void commitSegment() {
+        private void commitSegment() {
             if (curSegment == null)
                 return;
             recMan.StopRecording();
             recMan.SaveLastRecording(curSegment.Filename);
             curTime += recMan.LastRecordingLength;
+            curSegment.TimeOut = curTime;
             xml.Segments.Add(curSegment);
             startSegment();
         }
 
-        public void rollbackSegment() {
+        private void rollbackSegment()
+        {
             recMan.StopRecording();
             recMan.DisposeOfLastRecording();
+            startSegment();
+        }
+
+        private void deleteLastCommitedSegmentAndRead()
+        {
+            recMan.StopRecording();
+            recMan.DisposeOfLastRecording();
+            xml.Segments.RemoveAt(xml.Segments.Count-1);
             startSegment();
         }
 
@@ -57,6 +98,7 @@ namespace AudioBooker {
         public void startRecording() {
             xml = new XmlAudiobook();
             curTime = TimeSpan.Zero;
+            ttSex.Start();
             startSegment();
         }
         //public void pauseRecording() {
@@ -65,27 +107,69 @@ namespace AudioBooker {
         //}
         public void stopRecording() {
             //commitSegment();
+            ttSex.Stop();
             recMan.StopRecording();
             recMan.DisposeOfLastRecording();
             curSegment = null;
+            FireHandler(RecStopped);
+            FireSegmentTimeUpdatedBasedOnCurrentSituation();
         }
 
         private void startSegment() {
+            whenLastSegmentStarted = DateTime.Now;
             recMan.StartRecording();
             curSegment = new XmlWavEvent() {
                 Type = WavEventType.WavRecording1,
                 Filename = string.Format(FilenameFormat, xml.Segments.Count),
-                //TimeIn = curTime,
+                TimeIn = curTime,
             };
             FireHandler(CurSegmentUpdated);
+            FireSegmentTimeUpdatedBasedOnCurrentSituation();
         }
 
         public void cleanUpFilenames(string filenameBig) {
-            var newFolderName = Utils.GetFullPathWithoutExtension(filenameBig);
+            var newFolderName = UtilsCore.GetFullPathWithoutExtension(filenameBig);
             foreach (var seg in AudiobookXml.Segments) {
                 seg.Filename = seg.Filename.Replace(DumpFolder + "/", "");
             }
+            if (Directory.Exists(newFolderName))
+                Directory.Delete(newFolderName, true);
             Directory.Move(DumpFolder, newFolderName);
+        }
+
+        public void keyPressed(System.Windows.Forms.KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Space || e.KeyCode == Keys.Enter)
+                commitSegment();
+            else if (e.Shift && e.KeyCode == Keys.Back)
+                deleteLastCommitedSegmentAndRead();
+            else if (e.KeyCode == Keys.Back)
+                rollbackSegment();
+            else if (e.KeyCode == Keys.R)
+                playbackLastSegment();
+            if (XmlUpdated != null)
+                XmlUpdated();
+        }
+
+        private void playbackLastSegment()
+        {
+            var lastSeg = xml.Segments.LastOrDefault();
+            if (lastSeg == null)
+                return;
+
+            if (playa != null)
+            {
+                playa.Stop();
+                return;
+            }
+
+            playa = new AudioPlaya(lastSeg.Filename);
+            playa.Play();
+            playa.Finished += () =>
+            {
+                playa.Dispose();
+                playa = null;
+            };
         }
 
         #endregion
@@ -105,6 +189,7 @@ namespace AudioBooker {
         public XmlWavEvent CurSegment { get { return curSegment; } }
 
         #endregion
+
 
     }
 }
