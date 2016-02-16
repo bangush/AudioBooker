@@ -165,10 +165,10 @@ namespace AudioBooker
 
             playa = new AudioPlaya(lastSeg.Filename);
             playa.Play();
-            playa.Finished += () =>
+            playa.Finished += (playaDone) =>
             {
-                playa.Dispose();
-                playa = null;
+                playaDone.Dispose();
+                playaDone = null;
             };
         }
 
