@@ -121,9 +121,33 @@ namespace Audiobooker.controls
             else if (e.KeyCode == Keys.P)
                 frameToPanoramic();
             else if (e.KeyCode == Keys.Down)
-                frameDelta(0, PixelDeltaY);
+            {
+                if (SrcRectAlreadyOutsideAtBottom())
+                {
+                    if (SrcRectOnLeftSide())
+                        frameToDefaultRight();
+                    else
+                        gotoPage(curIndex + 1);
+                }
+                else
+                    frameDelta(0, PixelDeltaY);
+            }
             else if (e.KeyCode == Keys.Up)
-                frameDelta(0, -PixelDeltaY);
+            {
+                if (SrcRectAlreadyAtTop())
+                {
+                    if (!SrcRectOnLeftSide())
+                        frameToDefaultLeft();
+                    else
+                    {
+                        gotoPage(curIndex - 1);
+                        frameToDefaultRight();
+                    }
+                    frameToBottom();
+                }
+                else
+                    frameDelta(0, -PixelDeltaY);
+            }
             else if (e.KeyCode == Keys.Left)
                 frameDelta(-PixelDeltaX, 0);
             else if (e.KeyCode == Keys.Right)
@@ -158,6 +182,21 @@ namespace Audiobooker.controls
             pageImage = null;
         }
 
+        private bool SrcRectAlreadyOutsideAtBottom()
+        {
+            return (rectSrc.Y + rectSrc.Height > pageImage.Height);
+        }
+
+        private bool SrcRectAlreadyAtTop()
+        {
+            return (rectSrc.Y == 0);
+        }
+
+        private bool SrcRectOnLeftSide()
+        {
+            return (rectSrc.X + rectSrc.Width / 2 < pageImage.Width / 2);
+        }
+
         private void zoom(double zDelta)
         {
             zoomFactor *= zDelta;
@@ -187,7 +226,7 @@ namespace Audiobooker.controls
             zoomFactor = LAYOUT_PERCENT_INIT_WINDOW_WIDTH / 100.0;
             var centerX = (50 + LAYOUT_PERCENT_MARGIN_LEFT) / 2;
             rectSrc.X = pageImage.Width * (centerX - LAYOUT_PERCENT_INIT_WINDOW_WIDTH / 2) / 100;
-            rectSrc.Y = 20;
+            rectSrc.Y = 0;
             updateSrcRectWHFromZoomFactor();
         }
 
@@ -198,9 +237,20 @@ namespace Audiobooker.controls
             zoomFactor = LAYOUT_PERCENT_INIT_WINDOW_WIDTH / 100.0;
             var centerX = (150 - LAYOUT_PERCENT_MARGIN_LEFT) / 2;
             rectSrc.X = pageImage.Width * (centerX - LAYOUT_PERCENT_INIT_WINDOW_WIDTH / 2) / 100;
-            rectSrc.Y = 20;
+            rectSrc.Y = 0;
             updateSrcRectWHFromZoomFactor();
         }
+
+        /// <summary>
+        /// Called after frameToDefaultLeft or frameToDefaultRight
+        /// </summary>
+        private void frameToBottom()
+        {
+            if (pageImage == null)
+                return;
+            rectSrc.Y = pageImage.Height - rectSrc.Height;
+        }
+
 
         private void frameToPanoramic()
         {
