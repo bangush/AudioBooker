@@ -55,4 +55,5 @@ ConsoleTests/bin/*
 ConsoleTests/obj/*
 IlyaFranker/bin/*
 IlyaFranker/obj/*
+$bin/*.wav
 
