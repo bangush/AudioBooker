@@ -167,8 +167,8 @@ namespace AudioBooker
             playa.Play();
             playa.Finished += (playaDone) =>
             {
-                playaDone.Dispose();
-                playaDone = null;
+                playa.Dispose();
+                playa = null;
             };
         }
 

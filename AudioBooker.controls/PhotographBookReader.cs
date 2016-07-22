@@ -95,7 +95,8 @@ namespace Audiobooker.controls
 
         private void loadPage(string filename)
         {
-            pageImage = Image.FromFile(filename);
+            pageImage = UtilsUi.LoadImageWithExifOrientation(filename);
+
             PixelDeltaX = pageImage.Width / 50;
             PixelDeltaY = pageImage.Height / 10;
             frameToDefaultLeft();

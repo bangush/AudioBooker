@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -110,8 +111,14 @@ namespace AudioBooker
 
         private void Form_Audiobooker2_Load(object sender, EventArgs e) {}
 
+        private int kkk = 1;
         private void Form_Audiobooker2_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.KeyData == Keys.Up ||
+                e.KeyData == Keys.Down ||
+                e.KeyData == Keys.Left ||
+                e.KeyData == Keys.Right)
+                return;
             logicShit.keyPressed(e);
             photographBookReader.keyPressed(e);
         }
