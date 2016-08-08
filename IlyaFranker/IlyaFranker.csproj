@@ -91,7 +91,7 @@
       <Project>{f1697b79-5b17-4b6a-91db-89691dfe8440}</Project>
       <Name>AudioBooker.classes</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Mp3SplitterCommon\Mp3SplitterCommon.csproj">
+    <ProjectReference Include="..\..\MiktemkCommons\Miktemk.Mp3\Miktemk.Mp3.csproj">
       <Project>{048b3d32-82af-41e8-a11f-1f2a9a199605}</Project>
       <Name>Mp3SplitterCommon</Name>
     </ProjectReference>
