@@ -1,0 +1,1 @@
+NOTE: MS did not have a Nuget package for this at the time, so copyright or not, im grabbing a copy of this code from their GitHub sources. Also I had to remove version.cs
