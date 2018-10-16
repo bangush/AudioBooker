@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioBooker", "AudioBooker\AudioBooker.csproj", "{C06382A6-4B4B-437B-BE29-7B2CDB04CA42}"
 EndProject
@@ -24,6 +24,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Msagl.Wpf.MiktemkCopy", "Msagl.Wpf.MiktemkCopy\Msagl.Wpf.MiktemkCopy.csproj", "{B5B014A9-9286-4E8A-8BFD-9D22725C8C0D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Miktemk.Wpf.FsmViaMsagl", "Miktemk.Wpf.FsmViaMsagl\Miktemk.Wpf.FsmViaMsagl.csproj", "{6A9DB751-9D74-458B-8777-8E342923C3C3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{0E6C9780-A451-4682-BE73-DE67DAAC5A4A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{405A852F-6CEC-436B-9D7B-02D3A436FCD8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -200,5 +204,14 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{77E71D67-34DE-44CF-9B63-8B9EFF269A93} = {405A852F-6CEC-436B-9D7B-02D3A436FCD8}
+		{DB69C87C-B374-4CD7-B0CF-FAA5541B2DF6} = {0E6C9780-A451-4682-BE73-DE67DAAC5A4A}
+		{048B3D32-82AF-41E8-A11F-1F2A9A199605} = {0E6C9780-A451-4682-BE73-DE67DAAC5A4A}
+		{04B21EE5-8EFF-4E6B-818E-EE0D958C2F06} = {405A852F-6CEC-436B-9D7B-02D3A436FCD8}
+		{DA6804E9-85DE-43C1-854E-6ABB3C85D970} = {0E6C9780-A451-4682-BE73-DE67DAAC5A4A}
+		{B5B014A9-9286-4E8A-8BFD-9D22725C8C0D} = {405A852F-6CEC-436B-9D7B-02D3A436FCD8}
+		{6A9DB751-9D74-458B-8777-8E342923C3C3} = {0E6C9780-A451-4682-BE73-DE67DAAC5A4A}
 	EndGlobalSection
 EndGlobal

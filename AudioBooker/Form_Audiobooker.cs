@@ -121,7 +121,7 @@ namespace AudioBooker {
 
         private void SoundEffectsFileUpdated(string id, string filename) {
             Configuration config = ConfigurationManager.OpenExeConfiguration(Application.ExecutablePath);
-            config.AppSettings.Settings.AddOrUpdate("SoundEffectFile-" + id, filename);
+            config.AppSettings.Settings.AddOrUpdateConfig("SoundEffectFile-" + id, filename);
             config.Save(ConfigurationSaveMode.Minimal);
         }
 

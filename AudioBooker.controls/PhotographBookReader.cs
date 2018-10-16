@@ -20,8 +20,8 @@ namespace Audiobooker.controls
         public static readonly Brush brushWhite = new SolidBrush(Color.White);
         public static readonly Font fontDefault = SystemFonts.DefaultFont;
 
-        private const int LAYOUT_PERCENT_MARGIN_LEFT = 20;
-        private const int LAYOUT_PERCENT_INIT_WINDOW_WIDTH = 40;
+        private const int LAYOUT_PERCENT_MARGIN_LEFT = 10; // NOTE: not used, hardcoded for now
+        private const int LAYOUT_PERCENT_INIT_WINDOW_WIDTH = 70;
         private const double ZoomDelta = 0.9;
 
         private Image pageImage;
@@ -224,8 +224,8 @@ namespace Audiobooker.controls
         {
             if (pageImage == null)
                 return;
-            zoomFactor = LAYOUT_PERCENT_INIT_WINDOW_WIDTH / 100.0;
-            var centerX = (50 + LAYOUT_PERCENT_MARGIN_LEFT) / 2;
+            //zoomFactor = LAYOUT_PERCENT_INIT_WINDOW_WIDTH / 100.0;
+            var centerX = 25; // (50 + LAYOUT_PERCENT_MARGIN_LEFT) / 2;
             rectSrc.X = pageImage.Width * (centerX - LAYOUT_PERCENT_INIT_WINDOW_WIDTH / 2) / 100;
             rectSrc.Y = 0;
             updateSrcRectWHFromZoomFactor();
@@ -235,8 +235,8 @@ namespace Audiobooker.controls
         {
             if (pageImage == null)
                 return;
-            zoomFactor = LAYOUT_PERCENT_INIT_WINDOW_WIDTH / 100.0;
-            var centerX = (150 - LAYOUT_PERCENT_MARGIN_LEFT) / 2;
+            //zoomFactor = LAYOUT_PERCENT_INIT_WINDOW_WIDTH / 100.0;
+            var centerX = 75; // (150 - LAYOUT_PERCENT_MARGIN_LEFT) / 2;
             rectSrc.X = pageImage.Width * (centerX - LAYOUT_PERCENT_INIT_WINDOW_WIDTH / 2) / 100;
             rectSrc.Y = 0;
             updateSrcRectWHFromZoomFactor();
